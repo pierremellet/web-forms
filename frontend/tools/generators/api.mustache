@@ -1,0 +1,10 @@
+{{#interfaces}}
+export interface {{name}} {
+    {{#properties}}
+    /**
+     *{{description}}
+     */
+    {{name}}{{required}} : {{type}};
+    {{/properties}}
+}
+{{/interfaces}}

@@ -1,0 +1,324 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8080/api/v1
+  description: Generated server url
+paths:
+  /validate:
+    post:
+      tags:
+      - validate-api-controller
+      operationId: validateField
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FormFieldValidation'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormFieldValidation'
+  /formSubmit:
+    post:
+      tags:
+      - form-submit-api-controller
+      operationId: submitForm
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FormSubmit'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormSubmit'
+  /formConfigs:
+    get:
+      tags:
+      - form-configs-api-controller
+      operationId: listForms
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FormConfig'
+    post:
+      tags:
+      - form-configs-api-controller
+      operationId: createOrUpdateForm
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FormConfig'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormConfig'
+  /accounts:
+    get:
+      tags:
+      - accounts-api-controller
+      operationId: listAccounts
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+    post:
+      tags:
+      - accounts-api-controller
+      operationId: createAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAccountRequest'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+  /formResults/{formId}:
+    get:
+      tags:
+      - form-results-api-controller
+      operationId: listFormResults
+      parameters:
+      - name: formId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FormValue'
+  /formConfigs/{formId}:
+    get:
+      tags:
+      - form-configs-api-controller
+      operationId: getFormConfig
+      parameters:
+      - name: formId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormConfig'
+  /callback:
+    get:
+      tags:
+      - callback-api-controller
+      operationId: oAuth2Callback
+      parameters:
+      - name: code
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: state
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    InputTextConfig:
+      type: object
+      properties:
+        regex:
+          type: string
+          description: Regex that value must match
+    InputAddressConfig:
+      type: object
+      properties:
+        min:
+          type: string
+          description: Description de la propriété 1
+        cp:
+          type: boolean
+          description: Description de la propriété 1
+        max:
+          type: integer
+          description: Description de la propriété 1
+          format: int32
+    FormFieldValidation:
+      required:
+      - fieldId
+      - fieldValue
+      - formId
+      type: object
+      properties:
+        fieldId:
+          type: string
+        formId:
+          type: string
+        fieldValue:
+          type: object
+        valide:
+          type: boolean
+    FormSubmit:
+      required:
+      - formId
+      - values
+      type: object
+      properties:
+        formId:
+          type: string
+        createdDate:
+          type: string
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/FormValue'
+    FormValue:
+      required:
+      - fieldId
+      - fieldValue
+      type: object
+      properties:
+        fieldId:
+          type: string
+        fieldValue:
+          type: string
+    FormConfig:
+      required:
+      - description
+      - name
+      - sections
+      type: object
+      properties:
+        formId:
+          type: string
+        authentication:
+          type: boolean
+        description:
+          $ref: '#/components/schemas/I18NString'
+        name:
+          $ref: '#/components/schemas/I18NString'
+        sections:
+          type: array
+          items:
+            $ref: '#/components/schemas/FormSection'
+        accountId:
+          type: string
+        createdDate:
+          type: string
+        redirectURL:
+          type: string
+        router:
+          $ref: '#/components/schemas/Router'
+    FormField:
+      required:
+      - config
+      - description
+      - id
+      - label
+      - type
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        required:
+          type: boolean
+        display:
+          type: string
+        description:
+          $ref: '#/components/schemas/I18NString'
+        label:
+          $ref: '#/components/schemas/I18NString'
+        config:
+          $ref: '#/components/schemas/FormFieldConfig'
+    FormFieldConfig:
+      type: object
+    FormSection:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          $ref: '#/components/schemas/I18NString'
+        description:
+          $ref: '#/components/schemas/I18NString'
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/FormField'
+    I18NString:
+      type: object
+      properties:
+        FR:
+          type: string
+        EN:
+          type: string
+    Router:
+      required:
+      - routerClass
+      - routerConfig
+      type: object
+      properties:
+        routerClass:
+          type: string
+        routerConfig:
+          type: object
+    CreateAccountRequest:
+      required:
+      - owner
+      type: object
+      properties:
+        owner:
+          type: string
+    Account:
+      required:
+      - owner
+      type: object
+      properties:
+        accountId:
+          type: string
+        owner:
+          type: string

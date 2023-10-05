@@ -1,0 +1,60 @@
+{
+    "authentication": true,
+    "name": {
+        "FR": "Jeux",
+        "EN": "Game"
+    },
+    "description": {
+        "FR": "Ce formulaire permet de saisir vos réponses",
+        "EN": "This form allows you to enter your answers "
+    },
+    "router": {
+        "routerClass": "ROUTER_DATABASE",
+        "routerConfig": {}
+    },
+    "sections": [
+        {
+            "id": "section-1",
+            "description": {
+                "FR": "Merci de saisir vos coordonnées pour que nous puissions vous recontacer",
+                "EN": "Please enter your contact details so that we can contact you"
+            },
+            "name": {
+                "FR": "Vos coordonnées",
+                "EN": "Your contact details"
+            },
+            "fields": [
+                {
+                    "id": "nom",
+                    "required": true,
+                    "label": {
+                        "FR": "Nom de famille",
+                        "EN": "Last name"
+                    },
+                    "description": {
+                        "FR": "Votre nom de famille de plus de 3 caractères",
+                        "EN": "Your last name of more than 3 characters"
+                    },
+                    "type": "INPUT_TEXT",
+                    "config": {
+                        "regex": "^.{4,}$"
+                    }
+                },
+                {
+                    "id": "github",
+                    "required": false,
+                    "label": {
+                        "FR": "Github",
+                        "EN": "Github"
+                    },
+                    "description": {
+                        "FR": "Vos informations depuis github",
+                        "EN": "Your data from github"
+                    },
+                    "type": "AUTH_INPUT_TEXT",
+                    "config": {}
+                }
+            ]
+        }
+    ]
+}

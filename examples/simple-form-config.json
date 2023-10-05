@@ -1,0 +1,176 @@
+{
+    "name": {
+        "FR": "Nous Contacter",
+        "EN": "Contact us"
+    },
+    "description": {
+        "FR": "Ce formulaire permet de faire une prise de contact",
+        "EN": "This form allows you to make a contact"
+    },
+    "router": {
+        "routerClass": "ROUTER_DATABASE",
+        "routerConfig": {}
+    },
+    "sections": [
+        {
+            "id": "section-1",
+            "description": {
+                "FR": "Merci de saisir vos coordonnées pour que nous puissions vous recontacer",
+                "EN": "Please enter your contact details so that we can contact you"
+            },
+            "name": {
+                "FR": "Vos coordonnées",
+                "EN": "Your contact details"
+            },
+            "fields": [
+                {
+                    "id": "nom",
+                    "required": true,
+                    "label": {
+                        "FR": "Nom de famille",
+                        "EN": "Last name"
+                    },
+                    "description": {
+                        "FR": "Votre nom de famille de plus de 3 caractères",
+                        "EN": "Your last name of more than 3 characters"
+                    },
+                    "type": "INPUT_TEXT",
+                    "config": {
+                        "regex": "^.{4,}$"
+                    }
+                },
+                {
+                    "id": "prenom",
+                    "required": true,
+                    "label": {
+                        "FR": "Prénom"
+                    },
+                    "description": {
+                        "FR": "Votre prénom de plus de 3 caractères"
+                    },
+                    "type": "INPUT_TEXT",
+                    "config": {
+                        "regex": "^.{4,}$"
+                    }
+                },
+                {
+                    "id": "téléphone",
+                    "required": true,
+                    "label": {
+                        "FR": "Téléphone",
+                        "EN": "Phone Number"
+                    },
+                    "description": {
+                        "FR": "Votre numéro de téléphone au format 0000000000"
+                    },
+                    "type": "INPUT_TEXT",
+                    "config": {
+                        "regex": "^(?:(?:\\+|00)33|0)\\s*[1-9](?:[\\s.-]*\\d{2}){4}$"
+                    }
+                },
+                {
+                    "id": "adresse",
+                    "label": {
+                        "FR": "Votre adresse",
+                        "EN": "Your adress"
+                    },
+                    "description": {
+                        "FR": "Votre adresse sera géocodée",
+                        "EN": "Your address will be geocoded"
+                    },
+                    "type": "INPUT_ADDRESS",
+                    "config": {}
+                }
+            ]
+        },
+        {
+            "id": "section-2",
+            "description": {
+                "FR": "La raison de votre contact"
+            },
+            "name": {
+                "FR": "Demande de contact",
+                "EN": "Contact request"
+            },
+            "fields": [
+                {
+                    "id": "raison",
+                    "required": true,
+                    "label": {
+                        "FR": "Raison"
+                    },
+                    "description": {
+                        "FR": "La raison de votre contact"
+                    },
+                    "type": "INPUT_SELECTMONO",
+                    "config": {
+                        "options": {
+                            "1": {
+                                "FR": "Demande d'informations sur un produit"
+                            },
+                            "2": {
+                                "FR": "S'abonner"
+                            },
+                            "3": {
+                                "FR": "Autre"
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "message",
+                    "required": true,
+                    "display": "raison == &3",
+                    "label": {
+                        "FR": "Message"
+                    },
+                    "description": {
+                        "FR": "Message de 100 caractères max"
+                    },
+                    "type": "INPUT_TEXTAREA",
+                    "config": {
+                        "regex": "^.{1,100}$"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "section-3",
+            "description": {
+                "FR": "Quand seriez-vous disponible ?"
+            },
+            "name": {
+                "FR": "Prise de rendez-vous",
+                "EN": "Make an appointment"
+            },
+            "fields": [
+                {
+                    "id": "rdv-date",
+                    "required": true,
+                    "label": {
+                        "FR": "Date"
+                    },
+                    "description": {
+                        "FR": "Date souhaitée"
+                    },
+                    "type": "INPUT_DATE",
+                    "config": {
+                        "regex": ".*"
+                    }
+                },
+                {
+                    "id": "rdv-validate",
+                    "required": true,
+                    "label": {
+                        "FR": "Je valide cette date"
+                    },
+                    "description": {},
+                    "type": "INPUT_CHECKBOX",
+                    "config": {
+                        "regex": "true"
+                    }
+                }
+            ]
+        }
+    ]
+}
