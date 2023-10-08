@@ -78,6 +78,33 @@
                         "FR": "Votre adresse sera géocodée",
                         "EN": "Your address will be geocoded"
                     },
+                    "display": {
+                        "type": "OR",
+                        "conditions": [
+                            {
+                                "fieldId": "téléphone",
+                                "operator": "equals",
+                                "value": "000000"
+                            },
+                            {
+                                "condition": {
+                                    "type": "AND",
+                                    "conditions": [
+                                        {
+                                            "fieldId": "nom",
+                                            "operator": "equals",
+                                            "value": "hello"
+                                        },
+                                        {
+                                            "fieldId": "nom",
+                                            "operator": "equals",
+                                            "value": "world"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
                     "type": "INPUT_ADDRESS",
                     "config": {}
                 }
@@ -120,7 +147,6 @@
                 {
                     "id": "message",
                     "required": true,
-                    "display": "raison == &3",
                     "label": {
                         "FR": "Message"
                     },

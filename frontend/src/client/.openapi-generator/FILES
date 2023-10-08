@@ -7,6 +7,8 @@ apis/ValidateApiControllerApi.ts
 apis/index.ts
 index.ts
 models/Account.ts
+models/ComplexRule.ts
+models/Condition.ts
 models/CreateAccountRequest.ts
 models/FormConfig.ts
 models/FormField.ts
@@ -15,8 +17,6 @@ models/FormSection.ts
 models/FormSubmit.ts
 models/FormValue.ts
 models/I18NString.ts
-models/InputAddressConfig.ts
-models/InputTextConfig.ts
 models/Router.ts
 models/index.ts
 runtime.ts

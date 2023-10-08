@@ -5,8 +5,8 @@ import { useAppDispatch, useAppSelector } from "../ui/store";
 import 'leaflet/dist/leaflet.css';
 import { Map, map, latLng, tileLayer, MapOptions, geoJSON, circleMarker } from "leaflet";
 import { useDebounce } from 'usehooks-ts';
-import { InputAddressConfig } from "../client";
 import { updateFieldValue } from "../form-service";
+import { InputAddressConfig } from "../client/models/InputAddressConfig";
 
 
 

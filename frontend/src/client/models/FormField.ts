@@ -13,6 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { ComplexRule } from './ComplexRule';
+import {
+    ComplexRuleFromJSON,
+    ComplexRuleFromJSONTyped,
+    ComplexRuleToJSON,
+} from './ComplexRule';
 import type { I18NString } from './I18NString';
 import {
     I18NStringFromJSON,
@@ -46,10 +52,10 @@ export interface FormField {
     required?: boolean;
     /**
      * 
-     * @type {string}
+     * @type {ComplexRule}
      * @memberof FormField
      */
-    display?: string;
+    display?: ComplexRule;
     /**
      * 
      * @type {I18NString}
@@ -67,7 +73,7 @@ export interface FormField {
      * @type {object}
      * @memberof FormField
      */
-    config: object;
+    config?: object;
 }
 
 /**
@@ -79,7 +85,6 @@ export function instanceOfFormField(value: object): boolean {
     isInstance = isInstance && "type" in value;
     isInstance = isInstance && "description" in value;
     isInstance = isInstance && "label" in value;
-    isInstance = isInstance && "config" in value;
 
     return isInstance;
 }
@@ -97,10 +102,10 @@ export function FormFieldFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         'id': json['id'],
         'type': json['type'],
         'required': !exists(json, 'required') ? undefined : json['required'],
-        'display': !exists(json, 'display') ? undefined : json['display'],
+        'display': !exists(json, 'display') ? undefined : ComplexRuleFromJSON(json['display']),
         'description': I18NStringFromJSON(json['description']),
         'label': I18NStringFromJSON(json['label']),
-        'config': json['config'],
+        'config': !exists(json, 'config') ? undefined : json['config'],
     };
 }
 
@@ -116,7 +121,7 @@ export function FormFieldToJSON(value?: FormField | null): any {
         'id': value.id,
         'type': value.type,
         'required': value.required,
-        'display': value.display,
+        'display': ComplexRuleToJSON(value.display),
         'description': I18NStringToJSON(value.description),
         'label': I18NStringToJSON(value.label),
         'config': value.config,

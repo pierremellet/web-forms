@@ -2,8 +2,8 @@ import React from "react";
 import { FieldProps } from "../ui/types";
 import { getFieldValue } from "../ui/reducers/fieldValuesSlice";
 import { useAppDispatch, useAppSelector } from "../ui/store";
-import { InputTextConfig } from "../client";
 import { updateFieldValue } from "../form-service";
+import { InputTextConfig } from "../client/models/InputTextConfig";
 
 export const InputText = (props: FieldProps<InputTextConfig, string>) => {
 

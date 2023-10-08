@@ -163,25 +163,6 @@ paths:
                 type: string
 components:
   schemas:
-    InputTextConfig:
-      type: object
-      properties:
-        regex:
-          type: string
-          description: Regex that value must match
-    InputAddressConfig:
-      type: object
-      properties:
-        min:
-          type: string
-          description: Description de la propriété 1
-        cp:
-          type: boolean
-          description: Description de la propriété 1
-        max:
-          type: integer
-          description: Description de la propriété 1
-          format: int32
     FormFieldValidation:
       required:
       - fieldId
@@ -221,6 +202,24 @@ components:
           type: string
         fieldValue:
           type: string
+    ComplexRule:
+      type: object
+      properties:
+        type:
+          type: string
+        conditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Condition'
+    Condition:
+      type: object
+      properties:
+        fieldId:
+          type: string
+        operator:
+          type: string
+        value:
+          type: string
     FormConfig:
       required:
       - description
@@ -250,7 +249,6 @@ components:
           $ref: '#/components/schemas/Router'
     FormField:
       required:
-      - config
       - description
       - id
       - label
@@ -264,7 +262,7 @@ components:
         required:
           type: boolean
         display:
-          type: string
+          $ref: '#/components/schemas/ComplexRule'
         description:
           $ref: '#/components/schemas/I18NString'
         label:
@@ -292,9 +290,9 @@ components:
     I18NString:
       type: object
       properties:
-        FR:
-          type: string
         EN:
+          type: string
+        FR:
           type: string
     Router:
       required:
