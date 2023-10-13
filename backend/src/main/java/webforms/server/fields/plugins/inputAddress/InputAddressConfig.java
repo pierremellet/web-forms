@@ -1,8 +1,8 @@
 package webforms.server.fields.plugins.inputAddress;
 
 
-import webforms.server.model.FormFieldConfig;
 import io.swagger.v3.oas.annotations.media.Schema;
+import webforms.server.model.FormFieldConfig;
 
 public class InputAddressConfig implements FormFieldConfig {
 

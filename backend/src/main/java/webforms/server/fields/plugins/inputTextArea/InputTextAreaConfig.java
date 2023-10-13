@@ -1,8 +1,8 @@
 package webforms.server.fields.plugins.inputTextArea;
 
 
-import webforms.server.model.FormFieldConfig;
 import io.swagger.v3.oas.annotations.media.Schema;
+import webforms.server.model.FormFieldConfig;
 
 public class InputTextAreaConfig implements FormFieldConfig {
     @Schema(description = "Regex that value must match")
@@ -15,7 +15,7 @@ public class InputTextAreaConfig implements FormFieldConfig {
 
     public InputTextAreaConfig(String regex) {
         this.regex = regex;
-     }
+    }
 
     public String getRegex() {
         return regex;

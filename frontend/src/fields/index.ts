@@ -12,7 +12,7 @@ export const getFieldTypes = (): string[] => {
 }
 
 export const getFieldUI = (field: FormField) => {
-    const fieldModule = fieldRegistry.get(field.type);
+    const fieldModule = fieldRegistry.get(field.type!);
     if (!fieldModule) {
         throw new Error(`Missing field module for type : ${field.type}`);
     }

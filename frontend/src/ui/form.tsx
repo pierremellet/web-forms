@@ -22,6 +22,8 @@ export const Form = () => {
     const accessToken = useAppSelector(getAccessToken);
     const dispatch = useAppDispatch();
 
+
+
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
         const myParam = urlParams.get('token');
@@ -50,6 +52,21 @@ export const Form = () => {
         }
     }, [])
 
+    useEffect(() => {
+        // Crée un élément style
+        const styleElement = document.createElement('style');
+
+        // Insère le contenu CSS dans l'élément style
+        styleElement.innerHTML = formConfig.customCSS || '';
+
+        // Ajoute l'élément style au document head
+        document.head.appendChild(styleElement);
+
+        // Retourne une fonction de nettoyage pour supprimer l'élément style si nécessaire
+        return () => {
+            document.head.removeChild(styleElement);
+        };
+    }, [formConfig.customCSS]);
 
     return (
         <div className='container'>

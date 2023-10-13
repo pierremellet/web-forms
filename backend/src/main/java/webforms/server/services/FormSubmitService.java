@@ -1,5 +1,9 @@
 package webforms.server.services;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import webforms.server.api.FormSubmitApiDelegate;
 import webforms.server.model.FormConfig;
 import webforms.server.model.FormSubmit;
@@ -8,10 +12,6 @@ import webforms.server.routers.RouterConfig;
 import webforms.server.routers.RouterException;
 import webforms.server.routers.RouterManager;
 import webforms.server.routers.RouterPlugin;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
@@ -41,8 +41,6 @@ public class FormSubmitService implements FormSubmitApiDelegate {
             } catch (RouterException e) {
                 throw new RuntimeException(e);
             }
-        } else {
-            return ResponseEntity.status(500).build();
         }
 
         return ResponseEntity.ok(formSubmit);

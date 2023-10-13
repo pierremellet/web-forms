@@ -1,7 +1,7 @@
 package webforms.server.fields.plugins.inputSelectMono;
 
-import webforms.server.fields.api.ConfigurableFieldPlugin;
 import org.springframework.stereotype.Component;
+import webforms.server.fields.api.ConfigurableFieldPlugin;
 
 @Component
 public class InputSelectMono implements ConfigurableFieldPlugin<String, InputSelectMonoConfig> {

@@ -13,7 +13,8 @@ public class ValidateApiController implements ValidateApi {
     private final ValidateApiDelegate delegate;
 
     public ValidateApiController(@Autowired(required = false) ValidateApiDelegate delegate) {
-        this.delegate = Optional.ofNullable(delegate).orElse(new ValidateApiDelegate() {});
+        this.delegate = Optional.ofNullable(delegate).orElse(new ValidateApiDelegate() {
+        });
     }
 
     @Override

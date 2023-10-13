@@ -12,7 +12,8 @@ public class AccountsApiController implements AccountsApi {
     private final AccountsApiDelegate delegate;
 
     public AccountsApiController(@Autowired(required = false) AccountsApiDelegate delegate) {
-        this.delegate = Optional.ofNullable(delegate).orElse(new AccountsApiDelegate() {});
+        this.delegate = Optional.ofNullable(delegate).orElse(new AccountsApiDelegate() {
+        });
     }
 
     @Override

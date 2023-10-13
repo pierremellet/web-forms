@@ -163,6 +163,45 @@ paths:
                 type: string
 components:
   schemas:
+    InputSelectMonoConfig:
+      type: object
+      properties:
+        options:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/I18NString'
+          description: Selectable options
+    InputDateConfig:
+      type: object
+      properties:
+        regex:
+          type: string
+          description: regex que la date doit respecter
+    InputAddressConfig:
+      type: object
+      properties:
+        min:
+          type: string
+          description: Description de la propriété 1
+        cp:
+          type: boolean
+          description: Description de la propriété 1
+        max:
+          type: integer
+          description: Description de la propriété 1
+          format: int32
+    InputTextConfig:
+      type: object
+      properties:
+        regex:
+          type: string
+          description: Regex that value must match
+    InputTextAreaConfig:
+      type: object
+      properties:
+        regex:
+          type: string
+          description: Regex that value must match
     FormFieldValidation:
       required:
       - fieldId
@@ -202,22 +241,25 @@ components:
           type: string
         fieldValue:
           type: string
-    ComplexRule:
+    Condition:
       type: object
       properties:
         type:
           type: string
+          enum:
+          - AND
+          - OR
         conditions:
           type: array
           items:
             $ref: '#/components/schemas/Condition'
-    Condition:
-      type: object
-      properties:
         fieldId:
           type: string
         operator:
           type: string
+          enum:
+          - EQUAL
+          - NOT_EQUAL
         value:
           type: string
     FormConfig:
@@ -227,6 +269,8 @@ components:
       - sections
       type: object
       properties:
+        customCSS:
+          type: string
         formId:
           type: string
         authentication:
@@ -248,11 +292,6 @@ components:
         router:
           $ref: '#/components/schemas/Router'
     FormField:
-      required:
-      - description
-      - id
-      - label
-      - type
       type: object
       properties:
         id:
@@ -262,15 +301,13 @@ components:
         required:
           type: boolean
         display:
-          $ref: '#/components/schemas/ComplexRule'
+          $ref: '#/components/schemas/Condition'
         description:
           $ref: '#/components/schemas/I18NString'
         label:
           $ref: '#/components/schemas/I18NString'
         config:
-          $ref: '#/components/schemas/FormFieldConfig'
-    FormFieldConfig:
-      type: object
+          type: object
     FormSection:
       required:
       - id

@@ -1,8 +1,8 @@
 package webforms.server.fields.plugins.inputDate;
 
 
-import webforms.server.model.FormFieldConfig;
 import io.swagger.v3.oas.annotations.media.Schema;
+import webforms.server.model.FormFieldConfig;
 
 public class InputDateConfig implements FormFieldConfig {
     @Schema(description = "regex que la date doit respecter")
@@ -15,7 +15,7 @@ public class InputDateConfig implements FormFieldConfig {
 
     public InputDateConfig(String regex) {
         this.regex = regex;
-     }
+    }
 
     public String getRegex() {
         return regex;

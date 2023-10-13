@@ -1,21 +1,19 @@
 package webforms.server.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+import webforms.server.api.ValidateApiDelegate;
 import webforms.server.fields.FieldsManager;
 import webforms.server.fields.api.ConfigurableFieldPlugin;
 import webforms.server.fields.api.FieldPlugin;
 import webforms.server.fields.api.SimpleFieldPlugin;
-import webforms.server.api.ValidateApiDelegate;
-import webforms.server.model.FormFieldConfig;
-import webforms.server.model.FormFieldValidation;
 import webforms.server.model.FormField;
+import webforms.server.model.FormFieldValidation;
 import webforms.server.repositories.FormConfigDocument;
 import webforms.server.repositories.FormConfigRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.NotNull;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -31,13 +29,13 @@ public class ValidateService implements ValidateApiDelegate {
     @Autowired
     private ObjectMapper objectMapper;
 
-    
+
     @Override
     public ResponseEntity<FormFieldValidation> validateField(FormFieldValidation fieldValidation) throws Exception {
 
         FormConfigDocument formConfig = this.formConfigRepository.findByFormId(fieldValidation.getFormId());
 
-        if(formConfig == null){
+        if (formConfig == null) {
             throw new Exception("Missing FormConfig");
         }
 
@@ -45,7 +43,7 @@ public class ValidateService implements ValidateApiDelegate {
 
         formConfig.getSections().forEach(s -> {
             s.getFields().forEach(f -> {
-                if(f.getId().equals(fieldValidation.getFieldId())){
+                if (f.getId().equals(fieldValidation.getFieldId())) {
                     formField.set(f);
                 }
             });
@@ -55,12 +53,12 @@ public class ValidateService implements ValidateApiDelegate {
         FieldPlugin fieldPlugin = fieldPluginOpt.get();
         Object val = fieldValidation.getFieldValue();
 
-        if(fieldPlugin instanceof ConfigurableFieldPlugin<?,?>){
+        if (fieldPlugin instanceof ConfigurableFieldPlugin<?, ?>) {
             final Object fieldConfig = formField.get().castConfig(this.objectMapper, ((ConfigurableFieldPlugin<?, ?>) fieldPlugin).getConfigTypeName());
-            fieldValidation.setValide(((ConfigurableFieldPlugin<Object,Object>)fieldPlugin).isValueValid(val, fieldConfig));
+            fieldValidation.setValide(((ConfigurableFieldPlugin<Object, Object>) fieldPlugin).isValueValid(val, fieldConfig));
         }
 
-        if(fieldPlugin instanceof SimpleFieldPlugin<?>)
+        if (fieldPlugin instanceof SimpleFieldPlugin<?>)
             fieldValidation.setValide(((SimpleFieldPlugin<Object>) fieldPlugin).isValueValid(val));
 
         return ResponseEntity.ok(fieldValidation);

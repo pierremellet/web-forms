@@ -12,7 +12,7 @@ export const InputText = (props: FieldProps<InputTextConfig, string>) => {
     }
 
     const dispatch = useAppDispatch();
-    const fieldValueState = useAppSelector(getFieldValue(props.field.id));
+    const fieldValueState = useAppSelector(getFieldValue(props.field.id!));
     var inputValue = "";
     if (fieldValueState) {
         inputValue = fieldValueState.fieldValue;

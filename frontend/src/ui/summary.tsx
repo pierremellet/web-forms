@@ -26,7 +26,7 @@ export const Summary = () => {
                                 <h5><I18N label={section.name} /></h5>
                                 <ul className="list-group list-group-flush">
                                     {
-                                        section.fields?.filter(f => f.type.includes("INPUT")).map((f: FormField) => {
+                                        section.fields?.filter(f => f.type!.includes("INPUT")).map((f: FormField) => {
 
                                             function findValue(id: string): string | undefined {
                                                 return items.find(i => i.fieldId == id)?.fieldValue

@@ -1,9 +1,9 @@
 package webforms.server.fields.plugins.inputSelectMono;
 
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import webforms.server.model.FormFieldConfig;
 import webforms.server.model.I18NString;
-import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Map;
 

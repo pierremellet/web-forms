@@ -13,7 +13,8 @@ public class FormSubmitApiController implements FormSubmitApi {
     private final FormSubmitApiDelegate delegate;
 
     public FormSubmitApiController(@Autowired(required = false) FormSubmitApiDelegate delegate) {
-        this.delegate = Optional.ofNullable(delegate).orElse(new FormSubmitApiDelegate() {});
+        this.delegate = Optional.ofNullable(delegate).orElse(new FormSubmitApiDelegate() {
+        });
     }
 
     @Override

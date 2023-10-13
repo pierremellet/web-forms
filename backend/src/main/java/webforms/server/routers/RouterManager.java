@@ -1,8 +1,8 @@
 package webforms.server.routers;
 
-import webforms.server.model.Router;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import webforms.server.model.Router;
 
 import java.util.Optional;
 import java.util.Set;

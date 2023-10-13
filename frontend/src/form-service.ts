@@ -1,6 +1,6 @@
 import config from "./config";
-import { Configuration, FormConfig, FormConfigsApiControllerApi, FormField, FormSection, FormSubmit, FormSubmitApiControllerApi, FormValue, ValidateApiControllerApi } from "./client";
-import { addFieldValue } from "./ui/reducers/fieldValuesSlice";
+import { Condition, ConditionOperatorEnum, ConditionTypeEnum, Configuration, FormConfig, FormConfigsApiControllerApi, FormField, FormSection, FormSubmit, FormSubmitApiControllerApi, FormValue, ValidateApiControllerApi } from "./client";
+import { FieldValueValid, addFieldValue } from "./ui/reducers/fieldValuesSlice";
 
 const apiClientConfig = new Configuration({
     basePath: config.api_hostname
@@ -45,7 +45,7 @@ export const isSectionValid = (formConfig: FormConfig, sectionId: string, fieldV
     return errors;
 }
 
-export const send = async (formId: string, fieldValues: FormValue[]): Promise<FormSubmit> => {
+export const sendFormValues = async (formId: string, fieldValues: FormValue[]): Promise<FormSubmit> => {
     return formSubmitApiClient.submitForm({
         formSubmit: {
             "formId": formId,
@@ -62,14 +62,45 @@ export const updateFieldValue = async <T>(dispatch: any, value: T, field: FormFi
         formFieldValidation: {
             "formId": formId,
             "fieldValue": value as any,
-            "fieldId": field.id
+            "fieldId": field.id!
         }
     });
     dispatch(addFieldValue({
-        formField: field,
-        value: value,
+        fieldId: field.id!,
+        fieldValue: value as any,
         sectionId: sectionId,
         valid: response.valide!
     }));
+}
+
+export const evalDisplayRule = (condition: Condition | undefined, values: FieldValueValid[]): boolean => {
+    if (!condition) {
+        return true;
+    }
+
+    if (condition.type === ConditionTypeEnum.And) {
+        //May be a group
+        return condition.conditions?.map(c => evalDisplayRule(c, values)).reduce((accumulator, currentValue) => accumulator && currentValue, true)!;
+    }
+
+    if (condition.type === ConditionTypeEnum.Or) {
+        //May be a group
+        return condition.conditions?.map(c => evalDisplayRule(c, values)).reduce((accumulator, currentValue) => accumulator || currentValue, true)!;
+    }
+
+    //May be a condition
+    const fieldValue = values.find(v => v.fieldId == condition.fieldId);
+    if (!fieldValue) {
+        return false;
+    }
+    if (condition.operator === ConditionOperatorEnum.Equal) {
+        return fieldValue?.fieldValue === condition.value;
+    }
+
+    if (condition.operator === ConditionOperatorEnum.NotEqual) {
+        return fieldValue?.fieldValue !== condition.value;
+    }
+
+    return true;
 }
 

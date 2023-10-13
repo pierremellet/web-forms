@@ -1,7 +1,7 @@
 package webforms.server.fields.plugins.inputCheckbox;
 
-import webforms.server.fields.api.SimpleFieldPlugin;
 import org.springframework.stereotype.Component;
+import webforms.server.fields.api.SimpleFieldPlugin;
 
 @Component
 public class InputCheckbox implements SimpleFieldPlugin<Boolean> {

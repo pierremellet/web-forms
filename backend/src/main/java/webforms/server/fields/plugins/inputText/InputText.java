@@ -1,7 +1,7 @@
 package webforms.server.fields.plugins.inputText;
 
-import webforms.server.fields.api.ConfigurableFieldPlugin;
 import org.springframework.stereotype.Component;
+import webforms.server.fields.api.ConfigurableFieldPlugin;
 
 @Component
 public class InputText implements ConfigurableFieldPlugin<String, InputTextConfig> {

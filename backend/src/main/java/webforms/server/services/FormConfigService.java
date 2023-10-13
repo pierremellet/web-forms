@@ -2,20 +2,22 @@ package webforms.server.services;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import webforms.server.fields.FieldsManager;
-import webforms.server.fields.api.ConfigurableFieldPlugin;
-import webforms.server.fields.api.FieldPlugin;
-import webforms.server.api.FormConfigsApiDelegate;
-import webforms.server.model.*;
-import webforms.server.repositories.FormConfigDocument;
-import webforms.server.repositories.FormConfigRepository;
-import jakarta.annotation.PostConstruct;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import webforms.server.api.FormConfigsApiDelegate;
+import webforms.server.fields.FieldsManager;
+import webforms.server.fields.api.ConfigurableFieldPlugin;
+import webforms.server.fields.api.FieldPlugin;
+import webforms.server.model.FormConfig;
+import webforms.server.model.FormError;
+import webforms.server.model.FormField;
+import webforms.server.model.FormSection;
+import webforms.server.repositories.FormConfigDocument;
+import webforms.server.repositories.FormConfigRepository;
 
 import java.net.URI;
 import java.util.*;
@@ -34,6 +36,12 @@ public class FormConfigService implements FormConfigsApiDelegate {
     @Autowired
     private ObjectMapper objectMapper;
 
+    public static boolean isDNSCompliant(String input) {
+        String dnsRegex = "^(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\\.[A-Za-z0-9-]{1,63})*$";
+        Pattern pattern = Pattern.compile(dnsRegex);
+        Matcher matcher = pattern.matcher(input);
+        return matcher.matches();
+    }
 
     @Override
     public ResponseEntity<FormConfig> createOrUpdateForm(FormConfig formConfig) throws Exception {
@@ -79,7 +87,6 @@ public class FormConfigService implements FormConfigsApiDelegate {
         final List<FormConfig> formConfigs = forms.stream().map(d -> this.modelMapper.map(d, FormConfig.class)).toList();
         return ResponseEntity.ok(formConfigs);
     }
-
 
     public FormConfigValidation validateFormConfig(FormConfig formConfig) {
 
@@ -197,7 +204,7 @@ public class FormConfigService implements FormConfigsApiDelegate {
                 errors.add(formError);
             }
 
-            if(!isDNSCompliant(section.getId())){
+            if (!isDNSCompliant(section.getId())) {
                 final FormError formError = new FormError();
                 formError.setId(section.getId());
                 formError.setMessage("Section ID not DNS compliant: " + section.getId());
@@ -220,14 +227,6 @@ public class FormConfigService implements FormConfigsApiDelegate {
         });
 
         return errors;
-    }
-
-
-    public static boolean isDNSCompliant(String input) {
-        String dnsRegex = "^(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\\.[A-Za-z0-9-]{1,63})*$";
-        Pattern pattern = Pattern.compile(dnsRegex);
-        Matcher matcher = pattern.matcher(input);
-        return matcher.matches();
     }
 
 }

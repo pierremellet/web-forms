@@ -5,21 +5,25 @@
  */
 package webforms.server.api;
 
-import webforms.server.model.FormConfig;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import webforms.server.model.FormConfig;
 
+import javax.annotation.Generated;
 import javax.validation.Valid;
 import java.util.List;
-import javax.annotation.Generated;
 
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-09-30T08:28:17.528094700+02:00[Europe/Paris]")
 @Validated
 public interface FormConfigsApi {
 
     default FormConfigsApiDelegate getDelegate() {
-        return new FormConfigsApiDelegate() {};
+        return new FormConfigsApiDelegate() {
+        };
     }
 
     /**
@@ -30,10 +34,10 @@ public interface FormConfigsApi {
      */
 
     @RequestMapping(
-        method = RequestMethod.POST,
-        value = "/formConfigs",
-        produces = { "application/json" },
-        consumes = { "application/json" }
+            method = RequestMethod.POST,
+            value = "/formConfigs",
+            produces = {"application/json"},
+            consumes = {"application/json"}
     )
     default ResponseEntity<FormConfig> createOrUpdateForm(@Valid @RequestBody(required = false) FormConfig formConfig
     ) throws Exception {
@@ -49,11 +53,11 @@ public interface FormConfigsApi {
      */
 
     @RequestMapping(
-        method = RequestMethod.GET,
-        value = "/formConfigs/{formId}",
-        produces = { "application/json" }
+            method = RequestMethod.GET,
+            value = "/formConfigs/{formId}",
+            produces = {"application/json"}
     )
-    default ResponseEntity<FormConfig> getFormConfig( @PathVariable("formId") String formId
+    default ResponseEntity<FormConfig> getFormConfig(@PathVariable("formId") String formId
     ) throws Exception {
         return getDelegate().getFormConfig(formId);
     }
@@ -66,12 +70,12 @@ public interface FormConfigsApi {
      */
 
     @RequestMapping(
-        method = RequestMethod.GET,
-        value = "/formConfigs",
-        produces = { "application/json" }
+            method = RequestMethod.GET,
+            value = "/formConfigs",
+            produces = {"application/json"}
     )
     default ResponseEntity<List<FormConfig>> listForms(
-        
+
     ) throws Exception {
         return getDelegate().listForms();
     }

@@ -8,7 +8,7 @@ export const FieldValidator = (props: {
     field: FormField
 }) => {
 
-    const fvv = useAppSelector(getFieldValue(props.field.id));
+    const fvv = useAppSelector(getFieldValue(props.field.id!));
     if (!fvv) {
         return;
     }

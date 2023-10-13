@@ -13,7 +13,8 @@ public class FormConfigsApiController implements FormConfigsApi {
     private final FormConfigsApiDelegate delegate;
 
     public FormConfigsApiController(@Autowired(required = false) FormConfigsApiDelegate delegate) {
-        this.delegate = Optional.ofNullable(delegate).orElse(new FormConfigsApiDelegate() {});
+        this.delegate = Optional.ofNullable(delegate).orElse(new FormConfigsApiDelegate() {
+        });
     }
 
     @Override

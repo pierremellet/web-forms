@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.LinkedHashMap;
 
 public interface ConfigurableFieldPlugin<V, C> extends FieldPlugin {
 
@@ -21,7 +20,7 @@ public interface ConfigurableFieldPlugin<V, C> extends FieldPlugin {
         }
     }
 
-    default C instanceFromJSON(ObjectMapper mapper, String jsonString){
+    default C instanceFromJSON(ObjectMapper mapper, String jsonString) {
         return mapper.convertValue(jsonString, getConfigTypeName());
     }
 

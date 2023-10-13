@@ -1,7 +1,7 @@
 import React from "react"
 import { useAppSelector } from "./store";
 import { getAllFieldValues } from "./reducers/fieldValuesSlice";
-import { send } from "../form-service";
+import { sendFormValues } from "../form-service";
 import { FormConfig } from "../client";
 import { I18N } from "./i18n";
 import { useNavigate } from "react-router";
@@ -15,7 +15,7 @@ export const SubmitBtn = (props: {
     const navigate = useNavigate();
 
     const submitForm = (e: any) => {
-        send(props.formConfig.formId!, items).then((res: any) => {
+        sendFormValues(props.formConfig.formId!, items).then((res: any) => {
             navigate(`/${props.formConfig.formId}/submit`);
         }).catch((err: any) => console.error(err));
     }

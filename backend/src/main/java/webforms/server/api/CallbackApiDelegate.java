@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import java.util.Optional;
 import javax.annotation.Generated;
+import java.util.Optional;
 
 /**
  * A delegate to be called by the {@link CallbackApiController}}.
@@ -22,12 +22,12 @@ public interface CallbackApiDelegate {
      * GET /callback
      *
      * @param code  (optional)
-     * @param state  (optional)
-     * @return  (status code 200)
+     * @param state (optional)
+     * @return (status code 200)
      * @see CallbackApi#oAuth2Callback
      */
     default ResponseEntity<String> oAuth2Callback(String code,
-        String state) throws Exception {
+                                                  String state) throws Exception {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }

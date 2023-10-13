@@ -1,0 +1,116 @@
+{
+    "name": {
+        "FR": "Quizz Informatique",
+        "EN": "Computer Science Quiz"
+    },
+    "description": {
+        "FR": "Ce quizz testera vos connaissances en informatique.",
+        "EN": "This quiz will test your knowledge of computer science."
+    },
+    "router": {
+        "routerClass": "ROUTER_DEFAULT",
+        "routerConfig": {}
+    },
+    "sections": [
+        {
+            "id": "section-1",
+            "description": {
+                "FR": "Testez vos connaissances en informatique.",
+                "EN": "Test your computer science knowledge."
+            },
+            "name": {
+                "FR": "Quizz Informatique",
+                "EN": "Computer Science Quiz"
+            },
+            "fields": [
+                {
+                    "id": "question-1",
+                    "required": true,
+                    "label": {
+                        "FR": "Question 1",
+                        "EN": "Question 1"
+                    },
+                    "description": {
+                        "FR": "Sélectionnez la bonne réponse.",
+                        "EN": "Select the correct answer."
+                    },
+                    "type": "INPUT_SELECTMONO",
+                    "config": {
+                        "options": {
+                            "a": {
+                                "FR": "Qu'est-ce que HTML?",
+                                "EN": "What is HTML?"
+                            },
+                            "b": {
+                                "FR": "Quel langage de programmation est utilisé pour créer des pages web dynamiques?",
+                                "EN": "Which programming language is used to create dynamic web pages?"
+                            },
+                            "c": {
+                                "FR": "Qu'est-ce que CSS?",
+                                "EN": "What is CSS?"
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "question-2",
+                    "required": true,
+                    "label": {
+                        "FR": "Question 2",
+                        "EN": "Question 2"
+                    },
+                    "description": {
+                        "FR": "Sélectionnez la bonne réponse.",
+                        "EN": "Select the correct answer."
+                    },
+                    "type": "INPUT_SELECTMONO",
+                    "config": {
+                        "options": {
+                            "a": {
+                                "FR": "Qu'est-ce que la programmation orientée objet?",
+                                "EN": "What is object-oriented programming?"
+                            },
+                            "b": {
+                                "FR": "Quel langage de programmation est principalement utilisé pour les applications mobiles?",
+                                "EN": "Which programming language is primarily used for mobile applications?"
+                            },
+                            "c": {
+                                "FR": "Qu'est-ce qu'un algorithme?",
+                                "EN": "What is an algorithm?"
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "question-3",
+                    "required": true,
+                    "label": {
+                        "FR": "Question 3",
+                        "EN": "Question 3"
+                    },
+                    "description": {
+                        "FR": "Sélectionnez la bonne réponse.",
+                        "EN": "Select the correct answer."
+                    },
+                    "type": "INPUT_SELECTMONO",
+                    "config": {
+                        "options": {
+                            "a": {
+                                "FR": "Qu'est-ce qu'un système d'exploitation?",
+                                "EN": "What is an operating system?"
+                            },
+                            "b": {
+                                "FR": "Qu'est-ce qu'un langage de programmation interprété?",
+                                "EN": "What is an interpreted programming language?"
+                            },
+                            "c": {
+                                "FR": "Quelle entreprise a développé le langage de programmation Java?",
+                                "EN": "Which company developed the Java programming language?"
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

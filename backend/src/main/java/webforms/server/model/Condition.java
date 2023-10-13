@@ -1,17 +1,43 @@
 package webforms.server.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Condition {
+    @JsonProperty("type")
+    private ConditionType type;
+
+    @JsonProperty("conditions")
+    private List<Condition> conditions;
+
+    @JsonProperty("fieldId")
     private String fieldId;
-    private String operator;
+
+    @JsonProperty("operator")
+    private ConditionOperator operator;
+
+    @JsonProperty("value")
     private String value;
 
-    public Condition() {
+    // Getters and setters
+
+    public ConditionType getType() {
+        return type;
     }
 
-    public Condition(String fieldId, String operator, String value) {
-        this.fieldId = fieldId;
-        this.operator = operator;
-        this.value = value;
+    public void setType(ConditionType type) {
+        this.type = type;
+    }
+
+    public List<Condition> getConditions() {
+        return conditions;
+    }
+
+    public void setConditions(List<Condition> conditions) {
+        this.conditions = conditions;
     }
 
     public String getFieldId() {
@@ -22,11 +48,11 @@ public class Condition {
         this.fieldId = fieldId;
     }
 
-    public String getOperator() {
+    public ConditionOperator getOperator() {
         return operator;
     }
 
-    public void setOperator(String operator) {
+    public void setOperator(ConditionOperator operator) {
         this.operator = operator;
     }
 

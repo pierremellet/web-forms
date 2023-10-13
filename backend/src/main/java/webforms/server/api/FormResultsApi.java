@@ -5,20 +5,23 @@
  */
 package webforms.server.api;
 
-import webforms.server.model.FormValue;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import webforms.server.model.FormValue;
 
-import java.util.List;
 import javax.annotation.Generated;
+import java.util.List;
 
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-09-30T08:28:17.528094700+02:00[Europe/Paris]")
 @Validated
 public interface FormResultsApi {
 
     default FormResultsApiDelegate getDelegate() {
-        return new FormResultsApiDelegate() {};
+        return new FormResultsApiDelegate() {
+        };
     }
 
     /**
@@ -29,9 +32,9 @@ public interface FormResultsApi {
      */
 
     @RequestMapping(
-        method = RequestMethod.GET,
-        value = "/formResults/{formId}",
-        produces = { "application/json" }
+            method = RequestMethod.GET,
+            value = "/formResults/{formId}",
+            produces = {"application/json"}
     )
     default ResponseEntity<List<FormValue>> listFormResults(@PathVariable("formId") String formId
     ) throws Exception {

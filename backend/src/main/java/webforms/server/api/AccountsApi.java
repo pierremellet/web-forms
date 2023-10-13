@@ -5,11 +5,13 @@
  */
 package webforms.server.api;
 
-import webforms.server.model.Account;
-import webforms.server.model.CreateAccountRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import webforms.server.model.Account;
+import webforms.server.model.CreateAccountRequest;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -18,16 +20,16 @@ import java.util.List;
 public interface AccountsApi {
 
     default AccountsApiDelegate getDelegate() {
-        return new AccountsApiDelegate() {};
+        return new AccountsApiDelegate() {
+        };
     }
 
 
-
     @RequestMapping(
-        method = RequestMethod.POST,
-        value = "/accounts",
-        produces = { "application/json" },
-        consumes = { "application/json" }
+            method = RequestMethod.POST,
+            value = "/accounts",
+            produces = {"application/json"},
+            consumes = {"application/json"}
     )
     default ResponseEntity<Account> createAccount(@Valid @RequestBody(required = false) CreateAccountRequest createAccountRequest) throws Exception {
         return getDelegate().createAccount(createAccountRequest);
@@ -41,12 +43,12 @@ public interface AccountsApi {
      */
 
     @RequestMapping(
-        method = RequestMethod.GET,
-        value = "/accounts",
-        produces = { "application/json" }
+            method = RequestMethod.GET,
+            value = "/accounts",
+            produces = {"application/json"}
     )
     default ResponseEntity<List<Account>> listAccounts(
-        
+
     ) throws Exception {
         return getDelegate().listAccounts();
     }

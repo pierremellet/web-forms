@@ -9,6 +9,8 @@ export type FieldValueValid = {
   sectionId: string
 } & FormValue;
 
+
+
 export type FormValueListState = FieldValueValid[];
 
 const initialState: FormValueListState = [];
@@ -17,21 +19,16 @@ const itemListSlice = createSlice({
   name: 'fieldValues',
   initialState,
   reducers: {
-    addFieldValue: (state, action: PayloadAction<{
-      value: any,
-      sectionId: string,
-      formField: FormField,
-      valid: boolean
-    }>) => {
-      const value = state.find(i => i.fieldId === action.payload.formField.id);
+    addFieldValue: (state, action: PayloadAction<FieldValueValid>) => {
+      const value = state.find(i => i.fieldId === action.payload.fieldId);
       if (value) {
-        value.fieldValue = action.payload.value;
+        value.fieldValue = action.payload.fieldValue;
         value.valid = action.payload.valid;
         value.sectionId = action.payload.sectionId;
       } else {
         state.push({
-          fieldId: action.payload.formField.id,
-          fieldValue: action.payload.value,
+          fieldId: action.payload.fieldId!,
+          fieldValue: action.payload.fieldValue,
           sectionId: action.payload.sectionId,
           valid: action.payload.valid
         });
@@ -41,7 +38,7 @@ const itemListSlice = createSlice({
   },
 });
 
-export const getAllFieldValues = (state: RootState) => state.fieldValues;
+export const getAllFieldValues = (state: RootState): FieldValueValid[] => state.fieldValues;
 export const getFieldValue = (fieldId: string) => (state: RootState): FieldValueValid | undefined => state.fieldValues.find(v => v.fieldId === fieldId)!;
 export const isSectionValuesValid = (formConfig: FormConfig, sectionId: string) => (state: RootState): boolean => {
   return isSectionValid(formConfig, sectionId, state.fieldValues).length === 0;

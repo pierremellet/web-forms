@@ -8,7 +8,7 @@ export const Progress = (props: {
 }) => {
     const values = useAppSelector(getAllFieldValues);
     const nbFilled = values.filter(v => v.fieldValue != "").filter(v => v.valid).length;
-    const fields = props.formConfig.sections.flatMap(s => s.fields).filter(f => f?.required).filter(f => f?.type.indexOf("INPUT")! >= 0);
+    const fields = props.formConfig.sections.flatMap(s => s.fields).filter(f => f?.required).filter(f => f?.type!.indexOf("INPUT")! >= 0);
     const nbField = fields.length;
     const progress = (nbFilled * 100) / nbField;
 

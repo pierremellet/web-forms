@@ -1,18 +1,18 @@
 package webforms.server;
 
- import webforms.server.model.FormFieldConfig;
+import io.swagger.v3.core.converter.ModelConverters;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.media.Schema;
 import org.reflections.Reflections;
- import org.reflections.util.ConfigurationBuilder;
- import org.slf4j.Logger;
- import org.slf4j.LoggerFactory;
- import org.springframework.context.annotation.Bean;
+import org.reflections.util.ConfigurationBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import io.swagger.v3.core.converter.ModelConverters;
+import webforms.server.model.FormFieldConfig;
 
- import java.util.HashMap;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -23,8 +23,8 @@ public class OpenAPIConfig {
     private static final Logger LOG = LoggerFactory.getLogger(OpenAPIConfig.class);
 
 
-    private Set<Class<? extends FormFieldConfig>> getFormFieldConfigs(){
-        String packageToScan = "ff.server.fields.plugins";
+    private Set<Class<? extends FormFieldConfig>> getFormFieldConfigs() {
+        String packageToScan = "webforms.server.fields.plugins";
         Reflections reflections = new Reflections(new ConfigurationBuilder().forPackages(packageToScan));
         return reflections.getSubTypesOf(FormFieldConfig.class);
     }

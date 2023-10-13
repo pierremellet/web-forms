@@ -43,6 +43,12 @@ export interface FormConfig {
      * @type {string}
      * @memberof FormConfig
      */
+    customCSS?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof FormConfig
+     */
     formId?: string;
     /**
      * 
@@ -116,6 +122,7 @@ export function FormConfigFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     }
     return {
         
+        'customCSS': !exists(json, 'customCSS') ? undefined : json['customCSS'],
         'formId': !exists(json, 'formId') ? undefined : json['formId'],
         'authentication': !exists(json, 'authentication') ? undefined : json['authentication'],
         'description': I18NStringFromJSON(json['description']),
@@ -137,6 +144,7 @@ export function FormConfigToJSON(value?: FormConfig | null): any {
     }
     return {
         
+        'customCSS': value.customCSS,
         'formId': value.formId,
         'authentication': value.authentication,
         'description': I18NStringToJSON(value.description),

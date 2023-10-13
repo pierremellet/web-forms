@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
-import type { ComplexRule } from './ComplexRule';
+import type { Condition } from './Condition';
 import {
-    ComplexRuleFromJSON,
-    ComplexRuleFromJSONTyped,
-    ComplexRuleToJSON,
-} from './ComplexRule';
+    ConditionFromJSON,
+    ConditionFromJSONTyped,
+    ConditionToJSON,
+} from './Condition';
 import type { I18NString } from './I18NString';
 import {
     I18NStringFromJSON,
@@ -37,13 +37,13 @@ export interface FormField {
      * @type {string}
      * @memberof FormField
      */
-    id: string;
+    id?: string;
     /**
      * 
      * @type {string}
      * @memberof FormField
      */
-    type: string;
+    type?: string;
     /**
      * 
      * @type {boolean}
@@ -52,22 +52,22 @@ export interface FormField {
     required?: boolean;
     /**
      * 
-     * @type {ComplexRule}
+     * @type {Condition}
      * @memberof FormField
      */
-    display?: ComplexRule;
+    display?: Condition;
     /**
      * 
      * @type {I18NString}
      * @memberof FormField
      */
-    description: I18NString;
+    description?: I18NString;
     /**
      * 
      * @type {I18NString}
      * @memberof FormField
      */
-    label: I18NString;
+    label?: I18NString;
     /**
      * 
      * @type {object}
@@ -81,10 +81,6 @@ export interface FormField {
  */
 export function instanceOfFormField(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "type" in value;
-    isInstance = isInstance && "description" in value;
-    isInstance = isInstance && "label" in value;
 
     return isInstance;
 }
@@ -99,12 +95,12 @@ export function FormFieldFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     }
     return {
         
-        'id': json['id'],
-        'type': json['type'],
+        'id': !exists(json, 'id') ? undefined : json['id'],
+        'type': !exists(json, 'type') ? undefined : json['type'],
         'required': !exists(json, 'required') ? undefined : json['required'],
-        'display': !exists(json, 'display') ? undefined : ComplexRuleFromJSON(json['display']),
-        'description': I18NStringFromJSON(json['description']),
-        'label': I18NStringFromJSON(json['label']),
+        'display': !exists(json, 'display') ? undefined : ConditionFromJSON(json['display']),
+        'description': !exists(json, 'description') ? undefined : I18NStringFromJSON(json['description']),
+        'label': !exists(json, 'label') ? undefined : I18NStringFromJSON(json['label']),
         'config': !exists(json, 'config') ? undefined : json['config'],
     };
 }
@@ -121,7 +117,7 @@ export function FormFieldToJSON(value?: FormField | null): any {
         'id': value.id,
         'type': value.type,
         'required': value.required,
-        'display': ComplexRuleToJSON(value.display),
+        'display': ConditionToJSON(value.display),
         'description': I18NStringToJSON(value.description),
         'label': I18NStringToJSON(value.label),
         'config': value.config,

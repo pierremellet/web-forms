@@ -1,7 +1,7 @@
 package webforms.server.fields.plugins.inputTextArea;
 
-import webforms.server.fields.api.ConfigurableFieldPlugin;
 import org.springframework.stereotype.Component;
+import webforms.server.fields.api.ConfigurableFieldPlugin;
 
 @Component
 public class InputTextArea implements ConfigurableFieldPlugin<String, InputTextAreaConfig> {
