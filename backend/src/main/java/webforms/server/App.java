@@ -14,12 +14,6 @@ import org.springframework.core.env.Environment;
 @SpringBootApplication
 public class App {
 
-    @Autowired
-    private Environment environment;
-    @Autowired
-    private ApplicationContext applicationContext;
-
-
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);
     }
