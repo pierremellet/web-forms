@@ -1,6 +1,7 @@
 package webforms.server.services;
 
 import org.modelmapper.ModelMapper;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,8 @@ import java.util.Optional;
 
 @Service
 public class FormSubmitService implements FormSubmitApiDelegate {
+
+    private static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(FormSubmitService.class);
 
     @Autowired
     private FormConfigRepository formConfigRepository;
@@ -35,14 +38,18 @@ public class FormSubmitService implements FormSubmitApiDelegate {
         final Optional<RouterPlugin> router = this.routerManager.getRouter(formConfig.getRouter());
 
         if (router.isPresent()) {
-            RouterConfig routerConfig = this.modelMapper.map(formConfig.getRouter().getRouterConfig(), RouterConfig.class);
+            var routerConfig = this.modelMapper.map(formConfig.getRouter().getRouterConfig(), router.get().getConfigClass());
             try {
-                router.get().route(formSubmit.getFormId(), formConfig, routerConfig, formSubmit.getValues());
+                router.get().route(formSubmit.getFormId(), formConfig, (RouterConfig) routerConfig, formSubmit.getValues());
             } catch (RouterException e) {
                 throw new RuntimeException(e);
+            }finally {
+                LOGGER.info("Result for form {} submited", formConfig.getFormId());
             }
+            return ResponseEntity.ok(formSubmit);
+        }else{
+            return ResponseEntity.status(500).build();
         }
 
-        return ResponseEntity.ok(formSubmit);
     }
 }

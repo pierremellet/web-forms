@@ -12,12 +12,11 @@ import webforms.server.api.FormConfigsApiDelegate;
 import webforms.server.fields.FieldsManager;
 import webforms.server.fields.api.ConfigurableFieldPlugin;
 import webforms.server.fields.api.FieldPlugin;
-import webforms.server.model.FormConfig;
-import webforms.server.model.FormError;
-import webforms.server.model.FormField;
-import webforms.server.model.FormSection;
+import webforms.server.model.*;
 import webforms.server.repositories.FormConfigDocument;
 import webforms.server.repositories.FormConfigRepository;
+import webforms.server.routers.RouterManager;
+import webforms.server.routers.RouterPlugin;
 
 import java.net.URI;
 import java.util.*;
@@ -35,6 +34,9 @@ public class FormConfigService implements FormConfigsApiDelegate {
     private FieldsManager fieldsManager;
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
+    private RouterManager routerManager;
 
     public static boolean isDNSCompliant(String input) {
         String dnsRegex = "^(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\\.[A-Za-z0-9-]{1,63})*$";
@@ -154,22 +156,41 @@ public class FormConfigService implements FormConfigsApiDelegate {
 
     public List<FormError> validateRouter(FormConfig formConfig) {
         List<FormError> errors = new ArrayList<>();
-/*
-        List<String> availableRouters = getRouterClassNames();
+
+        Set<String> availableRouters = this.routerManager.getRouterTypes();
 
         if (formConfig.getRouter() != null && !availableRouters.contains(formConfig.getRouter().getRouterClass())) {
-            errors.add("Missing router class : " + formConfig.getRouter().getRouterClass());
+            final FormError routerError = new FormError();
+            routerError.setId(formConfig.getRouter().getRouterClass());
+            routerError.setMessage("Missing router class : " + formConfig.getRouter().getRouterClass());
+            errors.add(routerError);
         }
 
         if (formConfig.getRouter() != null) {
-            List<String> routerConfigValidationErrors = validateRouterConfig(formConfig.getRouter().getRouterClass(), formConfig.getRouter().getRouterConfig());
+            final List<String> routerConfigValidationErrors = validateRouterConfig(formConfig.getRouter(), formConfig.getRouter().getRouterConfig());
             if (!routerConfigValidationErrors.isEmpty()) {
-                errors.add("Router config is invalid : " + String.join(", ", routerConfigValidationErrors));
+                final FormError routerError = new FormError();
+                routerError.setId(formConfig.getRouter().getRouterClass());
+                routerError.setMessage("Router config is invalid : " + String.join(", ", routerConfigValidationErrors));
+                errors.add(routerError);
             }
         }
-*/
         return errors;
     }
+
+    private List<String> validateRouterConfig(Router router, Object routerConfig) {
+        List<String> errors = new ArrayList<>();
+        final Optional<RouterPlugin> routerPlugin = this.routerManager.getRouter(router);
+        if(routerPlugin.isPresent()){
+            try {
+                var mappedConfig = this.modelMapper.map(routerConfig, routerPlugin.get().getConfigClass());
+            }catch (Exception e){
+                errors.add(e.getMessage());
+            }
+        }
+        return errors;
+    }
+
 
     public List<FormError> validateFieldIDs(FormConfig formConfig) {
         List<FormError> errors = new ArrayList<>();

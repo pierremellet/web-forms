@@ -26,5 +26,5 @@ jobs:
 
       - name: Build and push Docker image frontend
         run: |
-          docker build -t pierremellet/web-forms_ui:latest ./frontend
-          docker push pierremellet/web-forms_ui:latest
+          docker build -t pierremellet/web-forms-ui:latest ./frontend
+          docker push pierremellet/web-forms-ui:latest

@@ -34,4 +34,9 @@ public class DatabaseRouter implements RouterPlugin<DatabaseRouterConfig> {
         formSubmitDocument.setValues(values);
         this.formSubmitRepository.insert(formSubmitDocument);
     }
+
+    @Override
+    public Class<?> getConfigClass() {
+        return DatabaseRouterConfig.class;
+    }
 }
