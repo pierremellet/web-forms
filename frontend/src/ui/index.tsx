@@ -7,9 +7,9 @@ import {
 import { SectionUI } from "./section";
 import store from "./store";
 import { loadAllFormConfig, loadFormConfig } from "../form-service";
-import { connect, Provider, useSelector } from "react-redux";
+import { Provider } from "react-redux";
 
-fetch('config.json')
+fetch('ext/config.json')
   .then(response => response.json())
   .then(config => {
     (document as any).config = config
