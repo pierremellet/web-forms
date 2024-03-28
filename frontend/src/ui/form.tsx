@@ -22,8 +22,6 @@ export const Form = () => {
     const accessToken = useAppSelector(getAccessToken);
     const dispatch = useAppDispatch();
 
-
-
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
         const myParam = urlParams.get('token');

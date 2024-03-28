@@ -8,7 +8,7 @@
         "EN": "This quiz will test your knowledge of computer science."
     },
     "router": {
-        "routerClass": "ROUTER_DEFAULT",
+        "routerClass": "ROUTER_DATABASE",
         "routerConfig": {}
     },
     "sections": [

@@ -4,25 +4,19 @@ import localReducer from './reducers/localSlice';
 import authReducer from './reducers/authSlice';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
-function saveToLocalStorage(state: RootState) {
-  try {
-    const serialisedState = JSON.stringify(state);
-    //localStorage.setItem("persistantState", serialisedState);
-  } catch (e) {
-    console.warn(e);
+ 
+
+const loadConfiguration = async (): Promise<any> => {
+  const reponse = await fetch('config.json');
+  const config = reponse.json();
+  return {
+    config: config
   }
 }
 
-function loadFromLocalStorage() {
-  try {
-    const serialisedState = localStorage.getItem("persistantState");
-    if (serialisedState === null) return undefined;
-    return JSON.parse(serialisedState);
-  } catch (e) {
-    console.warn(e);
-    return undefined;
-  }
-}
+
+ 
+
 
 const store = configureStore({
   reducer: {
@@ -30,12 +24,10 @@ const store = configureStore({
     local: localReducer,
     auth: authReducer
   },
-  preloadedState: loadFromLocalStorage(),
   devTools: true
 });
 
-store.subscribe(() => saveToLocalStorage(store.getState()));
-
+ 
 
 export default store;
 

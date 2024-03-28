@@ -1,14 +1,19 @@
-import config from "./config";
+import { useSelector } from "react-redux";
 import { Condition, ConditionOperatorEnum, ConditionTypeEnum, Configuration, FormConfig, FormConfigsApiControllerApi, FormField, FormSection, FormSubmit, FormSubmitApiControllerApi, FormValue, ValidateApiControllerApi } from "./client";
 import { FieldValueValid, addFieldValue } from "./ui/reducers/fieldValuesSlice";
 
+
+
+ 
 const apiClientConfig = new Configuration({
-    basePath: config.api_hostname
+    basePath: (document as any).config ? (document as any).config.API_HOSTNAME : "http://localhost:8082"
 })
+
 const formConfigsApiClient = new FormConfigsApiControllerApi(apiClientConfig);
 const formSubmitApiClient = new FormSubmitApiControllerApi(apiClientConfig);
 const validateApiClient = new ValidateApiControllerApi(apiClientConfig);
 
+ 
 
 export const loadFormConfig = async (formId: string): Promise<FormConfig> => {
     return formConfigsApiClient.getFormConfig({ formId: formId });
