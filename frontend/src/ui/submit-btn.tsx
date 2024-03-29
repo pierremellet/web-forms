@@ -1,21 +1,23 @@
-import React from "react"
+import React, { useContext } from "react"
 import { useAppSelector } from "./store";
 import { getAllFieldValues } from "./reducers/fieldValuesSlice";
-import { sendFormValues } from "../form-service";
-import { FormConfig } from "../client";
+ import { FormConfig } from "../client";
 import { I18N } from "./i18n";
 import { useNavigate } from "react-router";
+import FormServiceContext from "./form-service-ctx";
+import FormService from "../form-service";
 
 export const SubmitBtn = (props: {
     disabled: string,
     formConfig: FormConfig
 }) => {
+    const formService = useContext(FormServiceContext) as FormService
 
     const items = useAppSelector(getAllFieldValues);
     const navigate = useNavigate();
 
     const submitForm = (e: any) => {
-        sendFormValues(props.formConfig.formId!, items).then((res: any) => {
+        formService.sendFormValues(props.formConfig.formId!, items).then((res: any) => {
             navigate(`/${props.formConfig.formId}/submit`);
         }).catch((err: any) => console.error(err));
     }

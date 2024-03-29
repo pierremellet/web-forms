@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FieldProps } from "../ui/types";
 import { addFieldValue, getFieldValue } from "../ui/reducers/fieldValuesSlice";
 import { useAppDispatch, useAppSelector } from "../ui/store";
 import { I18N } from "../ui/i18n";
-import { updateFieldValue } from "../form-service";
-
+import FormService from "../form-service";
+import FormServiceContext from "../ui/form-service-ctx";
+ 
 
 
 export const InputCheckbox = (props: FieldProps<any, string>) => {
+
+    const formService = useContext(FormServiceContext) as FormService
 
     if (!props.sectionId) {
         throw new Error(`Mission section ID for field ${props.field.id}`);
@@ -21,7 +24,7 @@ export const InputCheckbox = (props: FieldProps<any, string>) => {
     }
     const handleChange = async (event: any) => {
         const value = event.target.checked as string;
-        await updateFieldValue<string>(dispatch, value, props.field, props.sectionId, props.formId);
+        await formService.updateFieldValue<string>(dispatch, value, props.field, props.sectionId, props.formId);
     }
 
 

@@ -1,19 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FieldProps } from "../ui/types";
 import { useDispatch } from "react-redux";
 import { getFieldValue } from "../ui/reducers/fieldValuesSlice";
-import { useAppSelector } from "../ui/store";
-import { updateFieldValue } from "../form-service";
+import { useAppSelector } from "../ui/store"; 
+import FormServiceContext from "../ui/form-service-ctx";
+import FormService from "../form-service";
 
 
 export const InputTextArea = (props: FieldProps<any, string>) => {
+    
+    const formService = useContext(FormServiceContext) as FormService
 
     const dispatch = useDispatch();
     const fieldValueState = useAppSelector(getFieldValue(props.field.id!));
 
     const handleChange = async (event: any) => {
         const value = event.target.value as string;
-        await updateFieldValue<string>(dispatch, value, props.field, props.sectionId, props.formId);
+        await formService.updateFieldValue<string>(dispatch, value, props.field, props.sectionId, props.formId);
     }
 
     return <React.Fragment>

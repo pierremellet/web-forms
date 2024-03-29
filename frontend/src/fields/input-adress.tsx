@@ -1,18 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { FieldProps } from "../ui/types";
 import { getFieldValue } from "../ui/reducers/fieldValuesSlice";
 import { useAppDispatch, useAppSelector } from "../ui/store";
 import 'leaflet/dist/leaflet.css';
 import { Map, map, latLng, tileLayer, MapOptions, geoJSON, circleMarker } from "leaflet";
 import { useDebounce } from 'usehooks-ts';
-import { updateFieldValue } from "../form-service";
-import { InputAddressConfig } from "../client/models/InputAddressConfig";
+ import { InputAddressConfig } from "../client/models/InputAddressConfig";
+import FormService from "../form-service";
+import FormServiceContext from "../ui/form-service-ctx";
 
 
 
 var myMap: Map | undefined = undefined;
 
 export const InputAdress = (props: FieldProps<InputAddressConfig, string>) => {
+
+    const formService = useContext(FormServiceContext) as FormService
 
     if (!props.sectionId) {
         throw new Error(`Mission section ID for field ${props.field.id}`);
@@ -54,7 +57,7 @@ export const InputAdress = (props: FieldProps<InputAddressConfig, string>) => {
     }
     const handleChange = async (event: any) => {
         const value = event.target.value as string;
-        await updateFieldValue<string>(dispatch, value, props.field, props.sectionId, props.formId);
+        await formService.updateFieldValue<string>(dispatch, value, props.field, props.sectionId, props.formId);
     }
 
     const debouncedValue = useDebounce<string>(fieldValueState?.fieldValue!, 1000)
