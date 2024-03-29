@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import { SectionUI } from "./section";
 import store, { useAppDispatch, useAppSelector } from "./store";
-import FormService  from "../form-service";
+import FormService from "../form-service";
 import { Provider } from "react-redux";
 import { getConf, updateConf } from "./reducers/confSlice";
 import FormServiceContext from "./form-service-ctx";
@@ -33,7 +33,7 @@ const Nothing = (props: React.PropsWithChildren<any>) => {
       path: "/",
       id: "home",
       loader: async ({ params }) => {
-        const conf = store.getState().conf; 
+        const conf = store.getState().conf;
         return await formService.loadAllFormConfig(conf)
       }
       ,
@@ -75,10 +75,10 @@ const Nothing = (props: React.PropsWithChildren<any>) => {
     },
   ]);
 
-  const Content = missingConf ? missingMsg : 
-  
-  <FormServiceContext.Provider value={formService}>
-    <RouterProvider router={router} />
+  const Content = missingConf ? missingMsg :
+
+    <FormServiceContext.Provider value={formService}>
+      <RouterProvider router={router} />
     </FormServiceContext.Provider>;
 
   return (
