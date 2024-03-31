@@ -5,4 +5,4 @@ RUN npm install && npm run build:ui
 
 FROM bitnami/nginx:latest as runner
 COPY --from=frontend_builder /app/build /app
-COPY ./public/config.json /app/ext/config.json
+COPY ./public/ext/config.json /app/ext/config.json
