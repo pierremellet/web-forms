@@ -2,7 +2,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { FormConfig, FormField, FormValue } from '../../client';
 import { RootState } from '../store';
-import { isSectionValid } from '../../form-service';
+import FormService from '../../form-service';
+
 
 export type FieldValueValid = {
   valid: boolean,
@@ -41,7 +42,7 @@ const itemListSlice = createSlice({
 export const getAllFieldValues = (state: RootState): FieldValueValid[] => state.fieldValues;
 export const getFieldValue = (fieldId: string) => (state: RootState): FieldValueValid | undefined => state.fieldValues.find(v => v.fieldId === fieldId)!;
 export const isSectionValuesValid = (formConfig: FormConfig, sectionId: string) => (state: RootState): boolean => {
-  return isSectionValid(formConfig, sectionId, state.fieldValues).length === 0;
+  return FormService.isSectionValid(formConfig, sectionId, state.fieldValues).length === 0;
 }
 export const { addFieldValue } = itemListSlice.actions;
 

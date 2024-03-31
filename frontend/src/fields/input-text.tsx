@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FieldProps } from "../ui/types";
 import { getFieldValue } from "../ui/reducers/fieldValuesSlice";
 import { useAppDispatch, useAppSelector } from "../ui/store";
-import { updateFieldValue } from "../form-service";
+import FormService from "../form-service";
 import { InputTextConfig } from "../client/models/InputTextConfig";
+import FormServiceContext from "../ui/form-service-ctx";
 
 export const InputText = (props: FieldProps<InputTextConfig, string>) => {
+
+    const formService = useContext(FormServiceContext) as FormService
 
     if (!props.sectionId) {
         throw new Error(`Mission section ID for field ${props.field.id}`);
@@ -19,7 +22,7 @@ export const InputText = (props: FieldProps<InputTextConfig, string>) => {
     }
     const handleChange = async (event: any) => {
         const value = event.target.value as string;
-        await updateFieldValue<string>(dispatch, value, props.field, props.sectionId, props.formId);
+        await formService.updateFieldValue<string>(dispatch, value, props.field, props.sectionId, props.formId);
     }
 
 

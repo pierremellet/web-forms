@@ -1,0 +1,92 @@
+{
+    "name": {
+        "EN": "Contact form",
+        "FR": "Formulaire de contact"
+    },
+    "description": {
+        "EN": "Contact form for gathering information",
+        "FR": "Formulaire de contact pour recueillir des informations"
+    },
+    "router": {
+        "routerClass": "DATABASE_ROUTER",
+        "routerConfig": {}
+    },
+    "sections": [
+        {
+            "id": "contactSection",
+            "name": {
+                "EN": "Contact Information",
+                "FR": "Informations de contact"
+            },
+            "description": {
+                "EN": "Please provide your contact details",
+                "FR": "Veuillez fournir vos coordonnées"
+            },
+            "fields": [
+                {
+                    "id": "birthdate",
+                    "type": "INPUT_DATE",
+                    "required": true,
+                    "description": {
+                        "EN": "Please enter your date of birth",
+                        "FR": "Veuillez entrer votre date de naissance"
+                    },
+                    "label": {
+                        "EN": "Date of Birth",
+                        "FR": "Date de naissance"
+                    },
+                    "config": {
+                        "regex" : ".*"
+                        }
+                },
+                {
+                    "id": "lastName",
+                    "type": "INPUT_TEXT",
+                    "required": true,
+                    "description": {
+                        "EN": "Please enter your last name",
+                        "FR": "Veuillez entrer votre nom de famille"
+                    },
+                    "label": {
+                        "EN": "Last Name",
+                        "FR": "Nom de famille"
+                    },
+                    "config": {
+                        "regex" : ".*"
+                    }
+                },
+                {
+                    "id": "firstName",
+                    "type": "INPUT_TEXT",
+                    "required": true,
+                    "description": {
+                        "EN": "Please enter your first name",
+                        "FR": "Veuillez entrer votre prénom"
+                    },
+                    "label": {
+                        "EN": "First Name",
+                        "FR": "Prénom"
+                    },
+                    "config": {
+                        "regex" : ".*"}
+                },
+                {
+                    "id": "comment",
+                    "type": "INPUT_TEXTAREA",
+                    "required": true,
+                    "description": {
+                        "EN": "Please provide any additional comments",
+                        "FR": "Veuillez fournir tout commentaire supplémentaire"
+                    },
+                    "label": {
+                        "EN": "Comments",
+                        "FR": "Commentaires"
+                    },
+                    "config": {
+                        "regex" : ".*"
+                    }
+                }
+            ]
+        }
+    ]
+}

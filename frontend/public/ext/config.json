@@ -1,6 +1,6 @@
 {
-    "API_HOSTNAME": "http://localhost:8082",
-    "OIDC_INTROSPECT_ENDPOINT": "http://localhost:8082/auth/realms/master/protocol/openid-connect/token/introspect",
-    "ENABLE_SECURITY": "false",
-    "CLIENT_ID": "forms-factory"
+    "API_HOSTNAME": "change_me",
+    "OIDC_INTROSPECT_ENDPOINT": "change_me",
+    "ENABLE_SECURITY": "change_me",
+    "CLIENT_ID": "change_me"
 }

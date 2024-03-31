@@ -1,20 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import { I18N } from "../ui/i18n";
 import { FieldProps } from "../ui/types";
 import { getFieldValue } from "../ui/reducers/fieldValuesSlice";
 import { useAppDispatch, useAppSelector } from "../ui/store";
-import { updateFieldValue } from "../form-service";
+ import FormServiceContext from "../ui/form-service-ctx";
+import FormService from "../form-service";
 
 
 
 export const InputSelectMono = (props: FieldProps<any, string>) => {
+
+    const formService = useContext(FormServiceContext) as FormService
+
 
     const dispatch = useAppDispatch();
     const valueState = useAppSelector(getFieldValue(props.field.id!));
 
     const handleChange = async (event: any) => {
         const value = event.target.value as string;
-        await updateFieldValue<string>(dispatch, value, props.field, props.sectionId, props.formId);
+        await formService.updateFieldValue<string>(dispatch, value, props.field, props.sectionId, props.formId);
     }
     const options = [];
     options.push(<option key={null} value={undefined}></option>);
